@@ -1,16 +1,22 @@
 import csv
 import config
 
+
 class Cliente:
-    def __init__(self, dni, nombre , apellido):
+    def __init__(self, dni, nombre, apellido):
         self.dni = dni
         self.nombre = nombre
         self.apellido = apellido
+
     def __str__(self):
-        return f"DNI: {self.dni}, Nombre: {self.nombre}, Apellido: {self.apellido}"
+        return f"({self.dni}) {self.nombre} {self.apellido}"
+
+    def to_dict(self):
+        return {'dni': self.dni, 'nombre': self.nombre, 'apellido': self.apellido}
 
 
 class Clientes:
+
     lista = []
     with open(config.DATABASE_PATH, newline='\n') as fichero:
         reader = csv.reader(fichero, delimiter=';')
@@ -23,6 +29,7 @@ class Clientes:
         for cliente in Clientes.lista:
             if cliente.dni == dni:
                 return cliente
+
     @staticmethod
     def crear(dni, nombre, apellido):
         cliente = Cliente(dni, nombre, apellido)
