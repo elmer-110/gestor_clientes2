@@ -1,6 +1,9 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel, constr, validator
+
+from fastapi import FastAPI, HTTPException  # Ensure FastAPI is installed: pip install fastapi
+from fastapi.responses import JSONResponse  # Ensure FastAPI is installed: pip install fastapi
+from pydantic import BaseModel, validator  # Ensure Pydantic is installed: pip install pydantic
+from typing import Annotated
+from pydantic.types import constr  # Ensure Pydantic is installed: pip install pydantic
 import database as db
 import helpers
 
@@ -9,9 +12,9 @@ headers = {"content-type": "charset=utf-8"}
 
 
 class ModeloCliente(BaseModel):
-    dni: constr(min_length=3, max_length=3)
-    nombre: constr(min_length=2, max_length=30)
-    apellido: constr(min_length=2, max_length=30)
+    dni: Annotated[str, constr(min_length=3, max_length=3)]
+    nombre: Annotated[str, constr(min_length=2, max_length=30)]
+    apellido: Annotated[str, constr(min_length=2, max_length=30)]
 
 
 class ModeloCrearCliente(ModeloCliente):
